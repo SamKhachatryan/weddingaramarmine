@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armenian Wedding</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Armenian', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #444;
+            background-color: #f4f4f4;
+        }
+
+        .section {
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            /* Initially set to invisible */
+            /* Move a bit downwards */
+            transition: all 0.6s;
+            /* Animation effect */
+        }
+
+        .section:not(.main-photo) {
+            opacity: 0;
+            margin: 20px;
+            border-radius: 10px;
+            /* Initially set other sections to invisible */
+            transform: translateY(20px);
+            /* Move a bit downwards */
+        }
+
+        .section:not(.main-photo):not(.dress-code) {
+            min-height: calc(100vh - 40px);
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .main-photo {
+            background-image: url('./wedding.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            /* Cover entire viewport */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            background-attachment: fixed;
+        }
+
+        .main-photo::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .main-photo .text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-photo .text > h1, .main-photo .text > p {
+            text-align: center;
+        }
+
+        .main-photo .text > p {
+            font-size: 20px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .steps p {
+            font-size: 20px;
+        }
+
+        .steps .icon {
+            width: 120px;
+            height: 120px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            /* Center the icon */
+            display: block;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 22px;
+        }
+
+        h2, p {
+            margin: 0 0 20px;
+        }
+
+        .steps .icon > img {
+            width: 60px;
+        }
+
+        .step-time {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .step-time > img {
+            width: 26px;
+            margin-right: 10px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .bottom-border-text {
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .bottom-border-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            width: 150px;
+            background: black;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .map {
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 100%;
+            flex: 1;
+            display: flex;
+        }
+
+        .map iframe {
+            width: 100%;
+            height: auto;
+            border: none;
+        }
+
+        .dress-code {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .colors {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            gap: 6px;
+        }
+
+        .colors>span {
+            flex-grow: 1;
+            min-width: calc(100% / 8 - 8px);
+            /* minimum width for 12 items in a row */
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #D8DBE0;
+            /* Maintains the square shape */
+        }
+
+        .colors>span:before {
+            content: "";
+            display: block;
+            padding-top: 100%;
+            /* This makes the height equal to the width */
+            /* For visualization */
+            /* For visualization */
+        }
+
+        .colors>span:last-child:after {
+            content: '\2715';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #F02626;
+        }
+
+        .contact-form {
+            padding: 20px 40px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .contact-form input[type="submit"] {
+            background-color: #e74c3c;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form input[type="submit"]:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Section 1: Main Photo with Text -->
+    <div class="section main-photo">
+        <div class="text">
+            <h1>Stex inch vor teqst</h1>
+            <p>Stex inch vor urish teqst Septemberi 2sy karanq es tesqsi mech nshenq</p>
+        </div>
+    </div>
+
+    <!-- Section 2: Wedding Steps -->
+    <div class="section steps">
+        <div class="icon">
+            <img src="./church.png" alt="church" />
+        </div>
+        <h2 class="text-center bottom-border-text">Սրբոց նահատակաց եկեղեցի</h2>
+        <h2 class="step-time"><img src="./clock.png" alt="clock" /> 14:30</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3046.783924793689!2d44.48617877574597!3d40.21386916796164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abd583ec00001%3A0xf48c8cd1ed1f20ce!2sHoly%20Martyrs%20Church!5e0!3m2!1sen!2sam!4v1692050077773!5m2!1sen!2sam"></iframe>
+        </div>
+    </div>
+
+    <div class="section steps">
+        <div class="icon">
+            <img src="./house.png" alt="house" />
+        </div>
+        <h2 class="text-center bottom-border-text">Flower Garden Rest House</h2>
+        <h2 class="step-time"><img src="./clock.png" alt="clock" /> 17:30</h2>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3046.3116492505023!2d44.44225817574649!3d40.224372467324756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406a97422175759f%3A0xc82fe610580bcb6!2sFlower%20Garden%20Rest%20House!5e0!3m2!1sen!2sam!4v1692049321631!5m2!1sen!2sam"></iframe>
+        </div>
+    </div>
+
+    <div class="section steps dress-code">
+        <div class="icon">
+            <img src="./dress-code.png" alt="dress code" />
+        </div>
+        <h2 class="text-center bottom-border-text">Հագուստի կոդ</h2>
+        <p class="text-center">Աղջիկների համար ցանկալի է բաց գույներ, բացի սպիտակից</p>
+        <div class="colors">
+            <span style="background: #FFEFD5"></span>
+            <span style="background: #FFF5EE"></span>
+            <span style="background: #FAF0E6"></span>
+            <span style="background: #E6E6FA"></span>
+            <span style="background: #FFF0F5"></span>
+            <span style="background: #FFDEAD;"></span>
+            <span style="background: #FFFACD"></span>
+            <span style="background: #FFFFFF;"></span>
+        </div>
+    </div>
+
+    <!-- Section 4: Contact -->
+    <div class="section contact">
+        <h2>Contact Us</h2>
+        <form class="contact-form" action="YOUR_ACTION_URL" method="post">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="message" rows="5" placeholder="Message"></textarea>
+            <input type="submit" value="Send Message">
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to handle scroll-triggered animations
+        const sections = document.querySelectorAll('.section:not(.main-photo)');  // Exclude main photo section from this
+
+        const checkVisibility = () => {
+            const triggerBottom = window.innerHeight / 5 * 4;
+
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+
+                if (sectionTop < triggerBottom) {
+                    section.style.opacity = "1";
+                    section.style.transform = "translateY(0)";
+                } else {
+                    section.style.opacity = "0";
+                    section.style.transform = "translateY(20px)";
+                }
+            });
+        };
+
+        window.addEventListener('scroll', checkVisibility);
+    </script>
+
+</body>
+
+</html>
