@@ -16,7 +16,7 @@
         }
 
         .section {
-            padding: 20px;
+            padding: 16px;
             background-color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             /* Initially set to invisible */
@@ -27,7 +27,7 @@
 
         .section:not(.main-photo) {
             opacity: 0;
-            margin: 20px;
+            margin: 10px;
             border-radius: 10px;
             /* Initially set other sections to invisible */
             transform: translateY(20px);
@@ -57,12 +57,12 @@
             background-repeat: no-repeat;
             height: 100vh;
             /* Cover entire viewport */
+            animation: fadeIn 1.5s forwards;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
             position: relative;
-            background-attachment: fixed;
         }
 
         .main-photo::before {
