@@ -81,11 +81,22 @@
         .main-photo .text {
             position: relative;
             z-index: 2;
+            display: flex;
+            flex-direction: column;
         }
 
         .main-photo .text>h1,
         .main-photo .text>p {
             text-align: center;
+        }
+
+        .main-photo .text > h1 {
+            margin: 0;
+        }
+
+        .main-photo .text > img {
+            width: 300px;
+            margin: 0 auto;
         }
 
         .main-photo .text>p {
@@ -325,11 +336,14 @@
         .remaining {
             display: flex;
             flex-wrap: wrap;
+            position: absolute;
+            bottom: 40px;
         }
         
         .remaining > h2 {
             width: 100%;
             text-align: center;
+            margin-bottom: 36px;
         }
 
         .remaining > div {
@@ -352,9 +366,11 @@
         }
 
         .remaining > div > p {
-            font-size: 3vw;
+            font-size: 3vmin;
             margin: 0;
         }
+
+        
     </style>
 </head>
 
@@ -364,24 +380,25 @@
     <div class="section main-photo">
         <div class="text">
             <h1 class="animate__animated animate__zoomInUp">ԱՐԱՄ ԵՎ ԱՐՄԻՆԵ</h1>
-            <div class="remaining animate__animated animate__zoomInUp">
-                <h2>Հարսանիքին մնաց</h2>
-                <div>
-                    <h4 id="days">00</h4>
-                    <p>ՕՐ</p>
-                </div>
-                <div>
-                    <h4 id="hours">00</h4>
-                    <p>ԺԱՄ</p>
-                </div>
-                <div>
-                    <h4 id="minutes">00</h4>
-                    <p>ՐՈՊԵ</p>
-                </div>
-                <div>
-                    <h4 id="seconds">00</h4>
-                    <p>ՎԱՅՐԿՅԱՆ</p>
-                </div>
+            <img src="./bottom-divider.png" alt="bottom divider">
+        </div>
+        <div class="remaining animate__animated animate__zoomInUp">
+            <h2>Հարսանիքին մնաց</h2>
+            <div>
+                <h4 id="days">00</h4>
+                <p>ՕՐ</p>
+            </div>
+            <div>
+                <h4 id="hours">00</h4>
+                <p>ԺԱՄ</p>
+            </div>
+            <div>
+                <h4 id="minutes">00</h4>
+                <p>ՐՈՊԵ</p>
+            </div>
+            <div>
+                <h4 id="seconds">00</h4>
+                <p>ՎԱՅՐԿՅԱՆ</p>
             </div>
         </div>
     </div>
