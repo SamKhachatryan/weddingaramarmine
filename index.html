@@ -19,25 +19,31 @@
         }
 
         .section {
+            transition: all .8s;
+        }
+
+        .section:not(.program-step):not(.route) {
             background-color: white;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             /* Initially set to invisible */
             /* Move a bit downwards */
-            transition: all .8s;
             /* Animation effect */
         }
 
-        .section:not(.main-photo) {
+        .section:not(.main-photo):not(.program-step):not(.route) {
             padding: 16px;
             opacity: 0;
             margin: 10px;
             border-radius: 10px;
             /* Initially set other sections to invisible */
-            transform: translateY(20px);
             /* Move a bit downwards */
         }
 
-        .section:not(.main-photo):not(.dress-code):not(.contact) {
+        .section:not(.main-photo) {
+            transform: translateY(20px);
+        }
+
+        .section:not(.main-photo):not(.dress-code):not(.contact):not(.program-step):not(.route) {
             min-height: calc(100vh - 40px);
         }
 
@@ -375,6 +381,43 @@
             font-size: 3vmin;
             margin: 0;
         }
+
+        .program-step-title {
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        .program-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .program-step .icon {
+            border: 1px solid black;
+            width: 120px;
+            height: 120px;
+            padding: 30px;
+            border-radius: 50%;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+
+        .program-step .icon > img {
+            width: 100%;
+        }
+
+        .route {
+            display: flex;
+            justify-content: center;
+        }
+
+
+        .route > img {
+            width: 100px;
+            /* margin-bottom: 20px; */
+            transform: rotate(8deg) translateX(-18px);
+        }
     </style>
 </head>
 
@@ -405,6 +448,28 @@
                 <p>ՎԱՅՐԿՅԱՆ</p>
             </div>
         </div>
+    </div>
+
+    <h2 class="program-step-title bottom-border-text">Օրվա ծրագիրը</h2>
+
+    <div class="program-step section">
+        <div class="icon">
+            <img src="./church.png" alt="church" />
+        </div>
+        <h2>Եկեղեցի</h2>
+        <h2 class="step-time"><img src="./clock.png" alt="clock" /> 14:30</h2>
+    </div>
+
+    <div class="section route">
+        <img class="route" src="./route.png" alt="route" />
+    </div>
+
+    <div class="program-step section">
+        <div class="icon">
+            <img src="./house.png" alt="house" />
+        </div>
+        <h2>Հարսանյաց սրահ</h2>
+        <h2 class="step-time"><img src="./clock.png" alt="clock" /> 17:30</h2>
     </div>
 
     <!-- Section 2: Wedding Steps -->
