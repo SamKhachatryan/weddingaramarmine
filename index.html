@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@300;400;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         body {
             font-family: 'Noto Sans Armenian', sans-serif;
@@ -90,11 +91,11 @@
             text-align: center;
         }
 
-        .main-photo .text > h1 {
+        .main-photo .text>h1 {
             margin: 0;
         }
 
-        .main-photo .text > img {
+        .main-photo .text>img {
             width: 300px;
             margin: 0 auto;
         }
@@ -259,6 +260,11 @@
             padding: 10px;
             border-radius: 6px;
             font-size: 16px;
+            transition: .4s;
+        }
+
+        .contact-form button:disabled {
+            opacity: .5;
         }
 
         .contact-form input[type="submit"] {
@@ -339,14 +345,14 @@
             position: absolute;
             bottom: 40px;
         }
-        
-        .remaining > h2 {
+
+        .remaining>h2 {
             width: 100%;
             text-align: center;
             margin-bottom: 36px;
         }
 
-        .remaining > div {
+        .remaining>div {
             width: 25%;
             padding: 0 10px;
             box-sizing: border-box;
@@ -356,21 +362,19 @@
             align-items: center;
         }
 
-        .remaining > div:not(:last-child) {
+        .remaining>div:not(:last-child) {
             border-right: 1px solid white;
         }
 
-        .remaining > div > h4 {
+        .remaining>div>h4 {
             font-size: 36px;
             margin: 0;
         }
 
-        .remaining > div > p {
+        .remaining>div>p {
             font-size: 3vmin;
             margin: 0;
         }
-
-        
     </style>
 </head>
 
@@ -451,18 +455,18 @@
         <h2 class="bottom-border-text">Հյուրերի Համար</h2>
         <form class="contact-form" action="YOUR_ACTION_URL" method="post">
             <label class="radio-text">
-                <input type="radio" name="for-guest" />
+                <input type="radio" name="for-guest" id="willcome" />
                 <span></span>
                 <b>Կգանք</b>
             </label>
             <label class="radio-text">
-                <input type="radio" name="for-guest" />
+                <input type="radio" name="for-guest" id="ofcourse-willcome" />
                 <span></span>
                 <b>Անպայման կգանք</b>
             </label>
-            <input type="text" name="name" placeholder="Անուն ազգանուն" required>
-            <input type="email" name="email" placeholder="Հյուրերի թիվ" required>
-            <button type="submit">Ուղարկել</button>
+            <input type="text" name="name" placeholder="Անուն ազգանուն" required id="name">
+            <input name="guests-number" placeholder="Հյուրերի թիվ" required id="guests-number">
+            <button type="submit" id="send" disabled>Ուղարկել</button>
         </form>
     </div>
 
@@ -509,6 +513,63 @@
         };
 
         calculateDate();
+
+        emailjs.init('eSvOZG2O75mto8GA5');
+
+        var sent = false;
+        var sendButton = document.getElementById('send');
+
+        const nameInput = document.getElementById('name');
+        const guestsNumberInput = document.getElementById('guests-number');
+        const willComeInput = document.getElementById('willcome');
+        const ofCourseWillComeInput = document.getElementById('ofcourse-willcome');
+
+        function checkValues() {
+            const name = nameInput.value;
+            const guestsNumber = guestsNumberInput.value;
+            const willCome = willComeInput.checked;
+            const ofCourseWillCome = ofCourseWillComeInput.checked;
+
+            const isValid = name && guestsNumber && (willCome || ofCourseWillCome);
+            sendButton.disabled = !isValid;
+            return isValid;
+        }
+
+        nameInput.onkeyup = checkValues;
+        guestsNumberInput.onkeyup = checkValues;
+        willComeInput.onkeyup = checkValues;
+        ofCourseWillComeInput.onkeyup = checkValues;
+        nameInput.onchange = checkValues;
+        guestsNumberInput.onchange = checkValues;
+        willComeInput.onchange = checkValues;
+        ofCourseWillComeInput.onchange = checkValues;
+
+        var loading;
+
+        sendButton.onclick = function (e) {
+            e.preventDefault();
+
+            if (sent || sendButton.disabled || loading) return;
+
+            const name = nameInput.value;
+            const guestsNumber = guestsNumberInput.value;
+            const willCome = willComeInput.checked;
+            const ofCourseWillCome = ofCourseWillComeInput.checked;
+
+            console.log(name, guestsNumber, willCome, ofCourseWillCome, 'something');
+
+            loading = true;
+            emailjs.send('service_zkv0zja', 'template_3o1e6xn', {
+                name: name,
+                guestsNumber: guestsNumber,
+                choice: willCome ? 'Կգանք' : 'Անպայման կգանք',
+            }, 'eSvOZG2O75mto8GA5').then(function () {
+                sendButton.innerText = "✔ Ուղարկվել է";
+                sendButton.disabled = true;
+                sent = true;
+                loading = false;
+            }).catch(function () { loading = false; });
+        };
 
         window.addEventListener('scroll', checkVisibility);
     </script>
